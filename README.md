@@ -1,4 +1,4 @@
-#Wallpaper
+# Wallpaper
 
 A toy wallpaper slideshow program for GNOME, Cinnamon, and Mate. (Cinnamon and Mate untested)
 
