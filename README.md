@@ -15,3 +15,9 @@ Example
 recursive = true
 interval-seconds = 120
 ```
+
+Default values (will apply if you leave an option empty or malformatted)
+```toml
+recursive = false
+interval-seconds = 5
+```
