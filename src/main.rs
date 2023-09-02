@@ -7,6 +7,7 @@ use std::{
     time::Duration,
 };
 
+use detect_desktop_environment::DesktopEnvironment;
 use itertools::Itertools;
 use toml::Table;
 
@@ -66,11 +67,17 @@ fn find_images(path: &Path, recursive: bool) -> Vec<PathBuf> {
 }
 
 fn change_wallpaper(image: &Path) {
+    let desktop_environment = match DesktopEnvironment::detect() {
+        Some(DesktopEnvironment::Gnome) => "gnome",
+        Some(DesktopEnvironment::Cinnamon) => "cinnamon",
+        Some(DesktopEnvironment::Mate) => "mate",
+        _ => panic!("Unsupported desktop environment")
+    };
     for theme in ["picture-uri", "picture-uri-dark"] {
         Command::new("bash")
             .arg("-c")
             .arg(&format!(
-                "gsettings set org.gnome.desktop.background {theme} file://{}",
+                "gsettings set org.{desktop_environment}.desktop.background {theme} file://{}",
                 image.display()
             ))
             .output()
